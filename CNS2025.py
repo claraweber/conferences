@@ -30,7 +30,7 @@ from scipy.stats import spearmanr, ttest_ind
 import babybrains_cfw as bb
 
 
-datadir = '/data/p_03088/PNI_7T/maps/'
+datadir = '/'
 
 #%%
 # load surfaces and parcellation
@@ -319,7 +319,7 @@ plt.close()
 # %%
 # demographic
 
-data_base = pd.read_csv(f'/data/p_03088/PNI_7T/participants.tsv', sep = '\t')
+data_base = pd.read_csv(f'{datadir}participants.tsv', sep = '\t')
 data_base['common'] = np.zeros((10,))
 
 sbn.set_theme(style = 'ticks', rc = {'axes.spines.right':False, 'axes.spines.top':False})
@@ -331,14 +331,14 @@ plt.close()
 # %%
 # stroke contextualization
 
-datadir_stroke = '/data/p_03088/pedstroke/freesurfer_out/micapipe_v0.2.0/sub-CIMT001/ses-38659/maps/'
+datadir_stroke = '/stroke/'
 
 data_l = nib.load(f'{datadir_stroke}sub-CIMT001_ses-38659_hemi-L_surf-fsLR-32k_label-thickness.func.gii').agg_data()
 data_r = nib.load(f'{datadir_stroke}sub-CIMT001_ses-38659_hemi-R_surf-fsLR-32k_label-thickness.func.gii').agg_data()
 data_ct = np.concatenate((data_l, data_r))
 
-surf_l = nib.load('/data/p_03088/pedstroke/freesurfer_out/micapipe_v0.2.0/sub-CIMT001/ses-38659/surf/sub-CIMT001_ses-38659_hemi-L_space-nativepro_surf-fsLR-32k_label-midthickness.surf.gii/')
-surf_r = nib.load('/data/p_03088/pedstroke/freesurfer_out/micapipe_v0.2.0/sub-CIMT001/ses-38659/surf/sub-CIMT001_ses-38659_hemi-R_space-nativepro_surf-fsLR-32k_label-midthickness.surf.gii/')
+surf_l = nib.load(f'{datadir_stroke}surf/sub-CIMT001_ses-38659_hemi-L_space-nativepro_surf-fsLR-32k_label-midthickness.surf.gii/')
+surf_r = nib.load(f'{datadir_stroke}surf/sub-CIMT001_ses-38659_hemi-R_space-nativepro_surf-fsLR-32k_label-midthickness.surf.gii/')
 pl, vl = surf_l.agg_data()
 pr, vr = surf_r.agg_data()
 surf_sl = build_polydata(pl, vl)
